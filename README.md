@@ -35,7 +35,7 @@ $ exit
 ## 3 Setup Deployment System
 
 ```
-> git clone do-server-ip:gitolite-admin
+> git clone git@do-server-ip:gitolite-admin
 > cd gitolite-admin
 ```
 
@@ -44,9 +44,6 @@ Edit conf/gitolite.conf
 repo gitolite-admin
     RW+     =   monster
 
-repo testing
-    RW+     =   @all
-
 repo keepmywork
     RW+     =   monster
 ```
@@ -54,14 +51,51 @@ repo keepmywork
 and commit repo
 
 ```
-git commit -am "added repo keepmywork" && git push
-cd ..
+> git commit -am "added repo keepmywork" && git push
+> cd ..
+```
+
+Now setup keepmywork scripts
+
+```
+> git clone git@github.com:sudachen/keepmywork
+> cd keepmywork
+> git remote add online git@do-server-ip:keepmywork
+> git checkout -b online
+> git push -u online online:master
+> ssh root@do-server-ip
+# sudo -i -u git
+$ git clone file://$HOME/repositories/keepmywork.git keepmywork
+$ cd keepmywork
+$ ./setup_hooks
+$ cd ..
+```
+
+## Setup NGINX Gate
+
+```
+> cd gitolite-admin
+```
+
+Edit conf/gitolite.conf
+```
+repo gitolite-admin
+    RW+     =   monster
+
+repo keepmywork
+    RW+     =   monster
+
+repo nginx-gate
+    RW+     =   monster
 ```
 
 ```
-git clone git@github.com:sudachen/keepmywork
-cd keepmywork
-git remote add online git@do-server-ip:keepmywork
-git checkout -b online
-git push -u online online
+> git commit -am "added repo nginx-gate" && git push
+> cd ..
 ```
+
+> git clone git@do-server-ip:nginx-gate
+> cd nginx-gate
+> cp ../keepmywork/templates/nginx-gate/* .
+> make up
+
