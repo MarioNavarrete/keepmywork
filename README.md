@@ -14,14 +14,15 @@
 # useradd -r -m -s /bin/bash git
 # usermod -a -G docker git
 # exit
-# scp ~/.ssh/id_rsa.pub root@do-server-ip:/home/git/monster.pub
-# ssh root@do-server-ip
+> scp ~/.ssh/id_rsa.pub root@do-server-ip:/home/git/monster.pub
+> ssh root@do-server-ip
 # sudo -i -u git
 $ git clone https://github.com/sitaramc/gitolite
 $ mkdir bin
 $ gitolite/install -to $HOME/bin
 $ bin/gitolite setup -pk monster.pub
-$ ^D^D
+$ exit
+# exit
 ```
 
 ## 3 Setup Deployment System
