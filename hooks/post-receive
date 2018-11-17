@@ -24,8 +24,7 @@ do
 
     case $DEPLOY_NAME in
 
-    *-webapp)
-    *-tasks)
+    *-webapp|*-tasks)
 
 	echo "general deployment hook is activated"
 
