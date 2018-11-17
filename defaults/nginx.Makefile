@@ -11,8 +11,8 @@ ifeq ($(origin TARGET_GIT), undefined)
 TARGET_GIT = online
 endif
 
-up: $TARGET.Up
-down: $TARGET.Down
+up: $(TARGET).Up
+down: $(TARGET).Down
 
 local.Up:
 	if [ -f shutdown.txt ]; then echo no > shutdown.txt; fi
