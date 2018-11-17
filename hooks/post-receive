@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export DEPLOY_ALLOWED_BRANCH=master
+export DEPLOY_ALLOWED_BRANCH=online
 export DEPLOY_ROOT="$HOME/work"
 
 while read oldrev newrev refname
@@ -24,7 +24,7 @@ do
 
     case $DEPLOY_NAME in
 
-    *-webapp|*-tasks)
+    *-webapp|*-tasks|*-gate|*-db)
 
 	echo "general deployment hook is activated"
 
@@ -47,19 +47,6 @@ do
 
         ;;
     
-    keepmywork)
-    
-	echo "keepmywork autoupdate hook is activated"
-
-        export GIT_WORK_TREE=$HOME/keepmywork
-        mkdir -p "${GIT_WORK_TREE}"
-
-        git checkout -f "${DEPLOY_BRANCH}" || exit 1
-        git reset --hard "$DEPLOY_NEWREV" || exit 1
-
-        cd ${GIT_WORK_TREE}
-        ;;
-       
    esac
 
 done

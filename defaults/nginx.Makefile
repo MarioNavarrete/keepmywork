@@ -15,10 +15,15 @@ up: $(TARGET).Up
 down: $(TARGET).Down
 
 local.Up:
-	if [ -f shutdown.txt ]; then echo no > shutdown.txt; fi
-	date > TEST
-	git commit -am "rebuild and up docker container"
-	git push $(TARGET_GIT) HEAD:master
+	-git commit -am "rebuild and up docker container"
+	BRANCH=$$(git branch) && \
+	if [ git checkout -b _online_ ] ; then \
+	   date > TEST &&\
+	   git add TEST &&\
+	   git commit -am "deploying" &&\
+	   git push $(TARGET_GIT) HEAD:_online_ -f ;\
+	   git checkout $$BRANCH ;\
+	fi
     
 local.Down:
 	echo yes > shutdown.txt
