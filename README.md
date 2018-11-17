@@ -9,7 +9,7 @@
 
 ## 2 Install GitoLite
 
-```bash
+```
 # ssh root@do-server-ip
 # useradd -r -m -s /bin/bash git
 # usermod -a -G docker git
