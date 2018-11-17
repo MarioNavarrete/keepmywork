@@ -2,8 +2,8 @@
 
 sed -i $HOME/.gitolite.rc -e 's:#[ \t]*LOCAL_CODE[ \t]*=>[ \t]*"$ENV{HOME}/local":LOCAL_CODE => "$ENV{HOME}/local":g'       
 
-chmod 700 hooks/*
 mkdir -p $HOME/local/hooks/common
-ln -sf $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
+cp $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
+chmod 700 $HOME/local/hooks/common/*
 $HOME/bin/gitolite setup
 
