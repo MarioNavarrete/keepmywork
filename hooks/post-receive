@@ -54,19 +54,19 @@ do
         export GIT_WORK_TREE=$HOME/keepmywork
         mkdir -p "${GIT_WORK_TREE}"
 
-       git checkout -f "${DEPLOY_BRANCH}" || exit 1
-       git reset --hard "$DEPLOY_NEWREV" || exit 1
+        git checkout -f "${DEPLOY_BRANCH}" || exit 1
+        git reset --hard "$DEPLOY_NEWREV" || exit 1
 
-       cd ${GIT_WORK_TREE}
+        cd ${GIT_WORK_TREE}
        
-       sed -i $HOME/.gitolite.rc -e 's:#[ \t]*LOCAL_CODE[ \t]*=>[ \t]*"$ENV{HOME}/local":LOCAL_CODE => "$ENV{HOME}/local":g'       
+        sed -i $HOME/.gitolite.rc -e 's:#[ \t]*LOCAL_CODE[ \t]*=>[ \t]*"$ENV{HOME}/local":LOCAL_CODE => "$ENV{HOME}/local":g'       
 
-       chmod 700 hooks/*
-       mkdir -p $HOME/local/hooks/common
-       ln -sf $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
-       $HOME/bin/gitolite setup
+        chmod 700 hooks/*
+        mkdir -p $HOME/local/hooks/common
+        ln -sf $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
+        $HOME/bin/gitolite setup
        
-       ;;
+        ;;
        
    esac
 
