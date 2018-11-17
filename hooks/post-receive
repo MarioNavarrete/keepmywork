@@ -64,7 +64,7 @@ do
        
        chmod 700 hooks/*
        mkdir -p $HOME/local/hooks/common
-       ln -s $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
+       ln -sf $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
        $HOME/bin/gitolite setup
        
        ;;
