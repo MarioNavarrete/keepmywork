@@ -10,7 +10,7 @@
 ## 2 Install GitoLite
 
 ```
-# ssh root@do-server-ip
+> ssh root@do-server-ip
 # useradd -r -m -s /bin/bash git
 # usermod -a -G docker git
 # exit
@@ -21,7 +21,7 @@ $ git clone https://github.com/sitaramc/gitolite
 $ mkdir bin
 $ gitolite/install -to $HOME/bin
 $ bin/gitolite setup -pk monster.pub
-$ exit
+$ ^D^D
 ```
 
 ## 3 Setup Deployment System
