@@ -59,8 +59,8 @@ do
 
        cd ${GIT_WORK_TREE}
        
-       sed $HOME/gitolite.rc -ie 's:#\s*LOCAL_CODE\s+=>\s+"$ENV{HOME}/local":LOCAL_CODE\s+=>\s+"$ENV{HOME}/local":g' 
-       
+       sed $HOME/.gitolite.rc -e 's:#[ \t]*LOCAL_CODE[ \t]*=>[ \t]*"$ENV{HOME}/local":LOCAL_CODE => "$ENV{HOME}/local":g'       
+
        chmod 700 hooks/*
        mkdir -p $HOME/local/hooks/common
        ln -sf $HOME/keepmywork/hooks/* $HOME/local/hooks/common/
