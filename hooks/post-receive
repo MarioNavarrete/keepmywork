@@ -58,9 +58,6 @@ do
         git reset --hard "$DEPLOY_NEWREV" || exit 1
 
         cd ${GIT_WORK_TREE}
-       
-        sed -i $HOME/.gitolite.rc -e 's:#[ \t]*LOCAL_CODE[ \t]*=>[ \t]*"$ENV{HOME}/local":LOCAL_CODE => "$ENV{HOME}/local":g'       
-
         ;;
        
    esac
