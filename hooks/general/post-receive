@@ -1,0 +1,41 @@
+#!/bin/bash
+
+export DEPLOY_ALLOWED_BRANCH=master
+export DEPLOY_ROOT="$HOME/work"
+
+while read oldrev newrev refname
+do
+
+    export DEPLOY_BRANCH=$(git rev-parse --symbolic --abbrev-ref $refname)
+    export DEPLOY_OLDREV="$oldrev"
+    export DEPLOY_NEWREV="$newrev"
+    export DEPLOY_REFNAME="$refname"
+
+    if [ ! -z "${DEPLOY_ALLOWED_BRANCH}" ]; then
+        if [ "${DEPLOY_ALLOWED_BRANCH}" != "$DEPLOY_BRANCH" ]; then
+            echo "githook: Branch '$DEPLOY_BRANCH' of '${DEPLOY_APP_NAME}' docker will not be deployed. Exiting."
+            exit 0
+        fi
+    fi
+
+    export GIT_DIR="$(cd $(dirname $(dirname $0));pwd)"
+    export DEPLOY_REPONAME="$(basename ${GIT_DIR})"
+    export DEPLOY_NAME="${DEPLOY_REPONAME%.git}"
+    export GIT_WORK_TREE="${DEPLOY_ROOT}/${DEPLOY_REPONAME}"
+    mkdir -p "${GIT_WORK_TREE}"
+
+    git checkout -f "${DEPLOY_BRANCH}" || exit 1
+    git reset --hard "$DEPLOY_NEWREV" || exit 1
+    
+    cd ${GIT_WORK_TREE}
+    export MAKE_DEFAULTS=$HOME/keepmywork/defaults
+    export MAKE_HOME=$HOME/keepmywork/specific/${DEPLOY_NAME}
+    if [ -d $MAKE_HOME ]; then cp ${MAKE_HOME}/*Makefile .; fi
+    if [ -f shutdown.txt ] && [[ $(head -n1 shutdown.txt) == *"yes"* ]]; then
+	echo "githook: Docker shutdown requested"
+	make down
+    else
+        make up
+    fi
+    
+done
