@@ -29,6 +29,11 @@ do
 
     cd ${GIT_WORK_TREE}
     chmod 700 hooks/self/* hooks/general/*
+    if [ ! -d $HOME/local/hooks/common/post-receive ]; then
+    	mkdir -p $HOME/local/hooks/common
+    	ln -s $HOME/keepmywork/hooks/general/* $HOME/local/hooks/common/
+    	$HOME/bin/gitolite setup
+    fi
     #for i in $(ls); do
     #    if [ -d /home/git/repositories/$i.git ]; then
     #	    rm /home/git/repositories/$i.git/hooks/post-receive
