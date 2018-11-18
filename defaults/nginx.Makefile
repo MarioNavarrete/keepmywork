@@ -4,7 +4,7 @@ include $(MAKE_DEFAULTS)/updown.Makefile
 
 remote.Up: build remote.Down
 	docker run -d --name ${DEPLOY_NAME} --restart always \
-                --network hub \
+                --network hub --hostname $$(hostname)\
                 -p 80:80 \
                 -p 443:443 \
                 ${DEPLOY_NAME}
