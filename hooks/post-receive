@@ -34,7 +34,7 @@ do
     	git reset --hard "$DEPLOY_NEWREV" || exit 1
     
     	cd $GIT_WORK_TREE
-    	export MAKE_DEFAULTS=$DEPLOY_ROOT/keepmywork/defaults
+    	export MAKE_DEFAULTS=$DEPLOY_ROOT/keepmywork.git/defaults
     	if [ -f shutdown.txt ] && [[ $(head -n1 shutdown.txt) == *"yes"* ]]; then
 	    echo "githook: Docker shutdown requested"
 	    make down
