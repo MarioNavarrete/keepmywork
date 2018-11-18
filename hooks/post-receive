@@ -22,9 +22,9 @@ do
     export DEPLOY_REPONAME="$(basename ${GIT_DIR})"
     export DEPLOY_NAME="${DEPLOY_REPONAME%.git}"
 
-    case $DEPLOY_NAME in
-
-    *-webapp|*-tasks|*-gate|*-db)
+    #case $DEPLOY_NAME in
+    #
+    #*-webapp|*-tasks|*-gate|*-db)
 
 	echo "general deployment hook is activated"
 
@@ -47,7 +47,7 @@ do
 
         ;;
     
-   esac
+   #esac
 
 done
 
