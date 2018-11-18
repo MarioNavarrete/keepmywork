@@ -1,0 +1,14 @@
+#REV1
+git+https://github.com/sudachen/keepmywork#egg=keepmywork
+flask>=0.12.2
+flask-sqlalchemy>=2.3.2
+flask-oauthlib>=0.9
+pymysql>=0.8.0
+pandas>=0.22
+google-api-python-client>=1.6
+oauth2client>=4.1
+requests>=2.18
+urllib3>=1.22
+pyyaml
+singleton_decorator
+pytz
