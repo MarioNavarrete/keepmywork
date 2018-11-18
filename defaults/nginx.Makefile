@@ -16,13 +16,15 @@ down: $(TARGET).Down
 
 local.Up:
 	-git commit -am "rebuild and up docker container"
-	BRANCH=$$(git branch) && \
-	if [ git checkout -b _online_ ] ; then \
+	BRANCH=$$(git branch|grep '*'|sed -e 's/[* ]//g') && \
+	if git checkout -b _online_ ; then \
 	   date > TEST &&\
 	   git add TEST &&\
 	   git commit -am "deploying" &&\
-	   git push $(TARGET_GIT) HEAD:_online_ -f ;\
-	   git checkout $$BRANCH ;\
+	   rm TEST &&\
+	   git push $(TARGET_GIT) HEAD:online -f ;\
+	   git checkout $$BRANCH;\
+	   git branch -D _online_; \
 	fi
     
 local.Down:
