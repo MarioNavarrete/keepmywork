@@ -106,8 +106,10 @@ repo nginx-gate
 > cd ..
 ```
 
+```
 > git clone -o online git@do-server-ip:nginx-gate nginx-gate
 > cd nginx-gate
 > cp -r ../keepmywork/templates/nginx-gate/* .
 > make up
+```
 
