@@ -17,7 +17,7 @@ down: $(TARGET).Down
 
 local.Up:
 	-git commit -am "rebuild keepmywork system"
-	git push $(TARGET_GIT) master
+	git push $(TARGET_GIT)
     
 local.Down:
 
