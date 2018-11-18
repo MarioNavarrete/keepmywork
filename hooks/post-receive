@@ -45,8 +45,7 @@ do
             make up
     	fi
 
-        ;;
-    
+   #     ;;    
    #esac
 
 done
