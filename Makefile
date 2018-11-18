@@ -22,7 +22,9 @@ local.Up:
 local.Down:
 
 remote.Up:
-	./setup_hooks
+	mkdir -p $HOME/local/hooks/common
+	cp hooks/* $HOME/local/hooks/common/
+	chmod 700 $HOME/local/hooks/common/*
 
 remote.Down:
 

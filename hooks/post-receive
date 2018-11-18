@@ -21,29 +21,22 @@ do
         fi
     fi
     
-    #case $DEPLOY_NAME in
-    #
-    #*-webapp|*-tasks|*-gate|*-db)
+    echo "general deployment hook is activated"
 
-	echo "general deployment hook is activated"
+    export GIT_WORK_TREE="${DEPLOY_ROOT}/${DEPLOY_REPONAME}"
+    mkdir -p "${GIT_WORK_TREE}"
 
-    	export GIT_WORK_TREE="${DEPLOY_ROOT}/${DEPLOY_REPONAME}"
-    	mkdir -p "${GIT_WORK_TREE}"
-
-    	git checkout -f "${DEPLOY_BRANCH}" || exit 1
-    	git reset --hard "$DEPLOY_NEWREV" || exit 1
+    git checkout -f "${DEPLOY_BRANCH}" || exit 1
+    git reset --hard "$DEPLOY_NEWREV" || exit 1
     
-    	cd $GIT_WORK_TREE
-    	export MAKE_DEFAULTS=$DEPLOY_ROOT/keepmywork.git/defaults
-    	if [ -f shutdown.txt ] && [[ $(head -n1 shutdown.txt) == *"yes"* ]]; then
-	    echo "githook: Docker shutdown requested"
-	    make down
-    	else
-            make up
-    	fi
-
-   #     ;;    
-   #esac
+    cd $GIT_WORK_TREE
+    export MAKE_DEFAULTS=$DEPLOY_ROOT/keepmywork.git/defaults
+    if [ -f shutdown.txt ] && [[ $(head -n1 shutdown.txt) == *"yes"* ]]; then
+	echo "githook: Docker shutdown requested"
+	make down
+    else
+        make up
+    fi
 
 done
 
