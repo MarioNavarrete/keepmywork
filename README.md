@@ -7,6 +7,18 @@
 
 ![](doc/img/do-docker.png)
 
+```
+> ssh root@do-server-ip
+# docker network create --subnet=192.168.168.0/24 hub
+# ufw disable
+# ufw reset
+# ufw allow ssh
+# ufw allow http
+# ufw allow https
+# ufw enable
+# exit
+```
+
 ## 2 Install GitoLite
 
 ```
@@ -94,8 +106,10 @@ repo nginx-gate
 > cd ..
 ```
 
-> git clone git@do-server-ip:nginx-gate
+```
+> git clone -o online git@do-server-ip:nginx-gate nginx-gate
 > cd nginx-gate
-> cp ../keepmywork/templates/nginx-gate/* .
+> cp -r ../keepmywork/templates/nginx-gate/* .
 > make up
+```
 
