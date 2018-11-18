@@ -31,7 +31,7 @@ do
     	mkdir -p "${GIT_WORK_TREE}"
 
     	git checkout -f "${DEPLOY_BRANCH}" || exit 1
-    	git reset --hard "$DEPLOY_NEWREV" || exit 1
+#    	git reset --hard "$DEPLOY_NEWREV" || exit 1
     
     	cd $GIT_WORK_TREE
     	export MAKE_DEFAULTS=$DEPLOY_ROOT/keepmywork.git/defaults
