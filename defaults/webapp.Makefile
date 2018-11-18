@@ -56,11 +56,11 @@ build:
 	cp Dockerfile .build
 	cp -r $(APP) .build/app
 	cp $(RQSDIR)/requirements*.txt .build/rqs
-	docker build -t ${DEPLOY_NAME}:test .build
+	docker build -t ${DEPLOY_NAME} .build
 	rm -r .build
 
 webapp: build $(foreach x,$(TEST_SERVICES),$(x).Up)
-	docker run --rm $(RUN_OPTIONS) --name ${DEPLOY_NAME}-test -it -p 8080:80 -p 5080:5000 ${DEPLOY_NAME}:test
+	docker run --rm $(RUN_OPTIONS) --name ${DEPLOY_NAME} -it -p 8080:80 -p 5080:5000 ${DEPLOY_NAME}
 
 ifneq ($(PYPY),)
 ifeq ($(PYPY),YES)
