@@ -82,7 +82,9 @@ $ ./setup_hooks
 $ cd ..
 ```
 
-## Setup NGINX Gate
+## 4 Deploy Services and Apps
+
+### Deploy NGINX Gate
 
 ```
 > cd gitolite-admin
@@ -115,7 +117,7 @@ Deploy NGINX gateway
 > make up
 ```
 
-## Setup MySQL Database
+### Deploy MySQL Server
 
 ```
 > cd gitolite-admin
@@ -178,6 +180,4 @@ Check webapp user connection
 
 mysql > \q
 ```
-
-
 
