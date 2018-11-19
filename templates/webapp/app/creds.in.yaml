@@ -1,10 +1,10 @@
 log:
-  url: mysql+pymysql://webapp@_.keepmywork.com/webapp?charset=utf8
+  url: mysql+pymysql://webapp:webapp_passwd@do-server.ip/webapp?charset=utf8
   table: webapp_logs
 o2a:
   client_id: ""
   client_secret: ""
-  redirect_uris: ["https://webapp.keepmywork.com/login","http://127.keepmywork.com:5080/login"]
+  redirect_uris: ["https://do-server-host/login","http://127.keepmywork.com:5080/login"]
   auth_uri: "https://accounts.google.com/o/oauth2/auth"
   token_uri: "https://accounts.google.com/o/oauth2/token"
 app:
