@@ -16,8 +16,10 @@ up: $(TARGET).Up
 down: $(TARGET).Down
 
 local.Up:
+ifeq ($(origin FORCE), YES)	
 	date >> UPDATED
 	git add UPDATED
+endif	
 	git commit -am "rebuild keepmywork system" || true
 	git push -f $(TARGET_GIT)
     
