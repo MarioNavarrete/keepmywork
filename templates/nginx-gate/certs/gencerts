@@ -1,0 +1,16 @@
+HOSTNAME=\*.keepmywork.com
+CLIENTS="root user"
+
+if [ ! -f nginx-ca.pem -o ! -f nginx-ca-key.pem ]; then
+  rm -f mginx-*.pem 
+  openssl genrsa 2048 > nginx-ca-key.pem
+  openssl req -subj "/O=CA/CN=${HOSTNAME}" -new -x509 -nodes -days 3600 -key nginx-ca-key.pem -out nginx-ca.pem
+fi
+
+if [ ! -f nginx-cert.pem -o ! -f nginx-key.pem ]; then
+  openssl req -subj "/O=SERVER/CN=${HOSTNAME}" -newkey rsa:2048 -days 3600 -nodes -keyout nginx-key.pem -out nginx-cert.req
+  openssl rsa -in nginx-key.pem -out nginx-key.pem
+  openssl x509 -req -in nginx-cert.req -days 3600 -CA nginx-ca.pem -CAkey nginx-ca-key.pem -set_serial 01 -out nginx-cert.pem
+fi
+
+rm -f *.req
