@@ -2,10 +2,10 @@
 CERTS_DIR=$(MAKEFILE_DIR)/certs
 ID_RSA_PEM=$(MAKE_DEFAULTS)/id_rsa.pem
 
-enc:  $(MAKEFILE_DIR)/id_rsa.pub $(HOME)/.ssh/id_rsa.pub
+enc:  $(ID_RSA_PEM) $(HOME)/.ssh/id_rsa.pub
 	openssl rand -base64 32 > .key.bin
 	ssh-keygen -f $(HOME)/.ssh/id_rsa.pub -e -m pem | openssl rsa -RSAPublicKey_in -pubout > .id_user.pem
-	openssl rsautl -encrypt -inkey $(ID_RSA_PPEM) -pubin -in .key.bin \
+	openssl rsautl -encrypt -inkey $(ID_RSA_PEM) -pubin -in .key.bin \
 	  | openssl base64 -out $(CERTS_DIR)/certs.key1
 	openssl rsautl -encrypt -inkey .id_user.pem -pubin -in .key.bin \
 	  | openssl base64 -out $(CERTS_DIR)/certs.key2	  
@@ -41,3 +41,10 @@ remote.Dec:
 
 
 dec: $(TARGET).Dec
+
+certs.Info:
+	@for i in $$(ls certs/*.pem| grep -v -- '-key.'); do \
+	  echo "$${i^^} -> "; \
+	  openssl x509 -noout -fingerprint -issuer -subject -in $$i | while read; do echo " : "$$REPLY; done; \
+	done
+	

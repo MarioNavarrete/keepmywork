@@ -21,10 +21,11 @@ remote.Down:
 	@echo docker is offline
 
 
-CERTS=certs/mysqld-key.pem certs/mysqld-cert.pem certs/mysqld-ca.pem
+CERTS=certs/mysqld-cert.pem certs/mysqld-ca.pem
 $(CERTS):
 	cd certs && ./gencerts
 certs: $(CERTS) enc
+	git add $(CERTS)
 
 remote.Build: remote.Dec
 	docker 	build -t ${DEPLOY_NAME} .

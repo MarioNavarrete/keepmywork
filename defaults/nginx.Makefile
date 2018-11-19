@@ -1,6 +1,7 @@
 SHELL=/bin/bash
 
 include $(MAKE_DEFAULTS)/updown.Makefile
+include $(MAKE_DEFAULTS)/certs.Makefile 
 
 remote.Up: build remote.Down
 	docker run -d --name ${DEPLOY_NAME} --restart always \
@@ -17,4 +18,10 @@ remote.Down:
 
 build:  
 	docker build -t ${DEPLOY_NAME} .
+
+CERTS = certs/nginx-cert.pem
+$(CERTS):
+	cd certs && ./gencerts
+certs: $(CERTS) enc
+	git add $(CERTS)
  	

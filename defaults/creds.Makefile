@@ -4,7 +4,7 @@ ID_RSA_PEM=$(MAKE_DEFAULS)/id_rsa.pem
 enc: $(CREDS_DIR)/creds.key1 $(CREDS_DIR)/creds.key2 $(CREDS_DIR)/creds.yaml.enc
 $(CREDS_DIR)/creds.key1 $(CREDS_DIR)/creds.key2: $(CREDS_DIR)/creds.yaml.enc
 
-$(CREDS_DIR)/creds.yaml.enc: $(CREDS_DIR)/creds.yaml $(MAKEFILE_DIR)/id_rsa.pub $(HOME)/.ssh/id_rsa.pub
+$(CREDS_DIR)/creds.yaml.enc: $(CREDS_DIR)/creds.yaml $(ID_RSA_PEM) $(HOME)/.ssh/id_rsa.pub
 
 	openssl rand -base64 32 > .key.bin
 	ssh-keygen -f $(HOME)/.ssh/id_rsa.pub -e -m pem | openssl rsa -RSAPublicKey_in -pubout > .id_user.pem
