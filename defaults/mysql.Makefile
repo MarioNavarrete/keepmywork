@@ -26,6 +26,10 @@ $(CERTS):
 	cd certs && ./gencerts
 certs: $(CERTS) enc
 
-build:	
+remote.Build: remote.Dec
 	docker 	build -t ${DEPLOY_NAME} .
 
+local.Build:
+	docker 	build -t ${DEPLOY_NAME} .
+	
+build: $(TARGET).Build	
