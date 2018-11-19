@@ -62,14 +62,12 @@ repo keepmywork
 ```
 
 and commit repo
-
 ```
 > git commit -am "added repo keepmywork" && git push
 > cd ..
 ```
 
-Now setup keepmywork scripts
-
+Upload keepmywork scripts and setup hooks
 ```
 > git clone git@github.com:sudachen/keepmywork
 > cd keepmywork
@@ -108,7 +106,7 @@ Commit and Push changes to cretae new repository
 > cd ..
 ```
 
-
+Deploy NGINX gateway
 ```
 > git clone -o online git@do-server-ip:nginx-gate nginx-gate
 > cd nginx-gate
@@ -144,7 +142,7 @@ Commit and Push changes to cretae new repository
 > cd ..
 ```
 
-
+Deploy MySQL server
 ```
 > git clone -o online git@do-server-ip:mysql-db mysql-db
 > cd mysql-db
@@ -154,7 +152,6 @@ Commit and Push changes to cretae new repository
 ```
 
 Connect to MySQL and change root password
-
 ```
 > mysql -h do-server-ip -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
 
@@ -164,7 +161,6 @@ mysql > \q
 ```
 
 Create webapp user and database
-
 ```
 > mysql -h do-server-ip -uroot -pnew-root-password --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
 
@@ -177,7 +173,6 @@ mysql > \q
 ```
 
 Check webapp user connection
-
 ```
 > mysql -h do-server-ip -uwebapp -ppassword --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-user-cert.pem --ssl-key=certs/mysql-user-key.pem
 
