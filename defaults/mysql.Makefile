@@ -9,7 +9,7 @@ remote.Up: build remote.Down
 		--network-alias ${DEPLOY_NAME} \
 		--hostname $$(hostname) \
 		-p 3306:3306 \
-		-v /var/lib/mysql:/var/lib/mysql \
+		-v /var/lib/mysql:/var/lib/mysql:Z \
 		${DEPLOY_NAME} --character-set-server=utf8mb4
 	@echo docker is online
 
