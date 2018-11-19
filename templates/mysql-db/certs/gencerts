@@ -1,0 +1,24 @@
+DB_HOSTNAME=\*.keepmywork.com
+CLIENTS="root user"
+
+if [ ! -f mysqld-ca.pem -o ! -f mysqld-ca-key.pem ]; then
+  rm -f mysqld-*.pem mysql-*.pem
+  openssl genrsa 2048 > mysqld-ca-key.pem
+  openssl req -subj "/O=CA/CN=${DB_HOSTNAME}" -new -x509 -nodes -days 3600 -key mysqld-ca-key.pem -out mysqld-ca.pem
+fi
+
+if [ ! -f mysqld-cert.pem -o ! -f mysqld-key.pem ]; then
+  openssl req -subj "/O=SERVER/CN=${DB_HOSTNAME}" -newkey rsa:2048 -days 3600 -nodes -keyout mysqld-key.pem -out mysqld-cert.req
+  openssl rsa -in mysqld-key.pem -out mysqld-key.pem
+  openssl x509 -req -in mysqld-cert.req -days 3600 -CA mysqld-ca.pem -CAkey mysqld-ca-key.pem -set_serial 01 -out mysqld-cert.pem
+fi
+
+for i in $CLIENTS; do
+  if [ ! -f mysql-$i-cert.pem -o ! -f mysql-$i-key.pem ]; then
+    openssl req -subj "/O=CLIENT/CN=$i" -newkey rsa:2048 -days 3600 -nodes -keyout mysql-$i-key.pem -out mysql-$i-cert.req
+    openssl rsa -in mysql-$i-key.pem -out mysql-$i-key.pem
+    openssl x509 -req -in mysql-$i-cert.req -days 3600 -CA mysqld-ca.pem -CAkey mysqld-ca-key.pem -set_serial 01 -out mysql-$i-cert.pem    
+  fi
+done
+
+rm -f *.req

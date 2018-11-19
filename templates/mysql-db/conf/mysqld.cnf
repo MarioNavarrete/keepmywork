@@ -1,0 +1,7 @@
+[mysqld]
+require_secure_transport = ON
+ssl-cipher = ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-SHA
+ssl_ca = /etc/certs/mysqld-ca.pem
+ssl_cert = /etc/certs/mysqld-cert.pem
+ssl_key = /etc/certs/mysqld-key.pem
+bind-address = 0.0.0.0
