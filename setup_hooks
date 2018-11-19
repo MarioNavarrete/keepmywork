@@ -18,7 +18,7 @@ git config user.name = "keepmywork setup script"
 git config user.email = "_@keepmywork.com"
 git commit -m "added deployment rsa key" defaults/id_rsa defaults/id_rsa.pub defaults/id_rsa.pem && git push
 
-cd $HOME
-bin/gitolite setup
+cd $HOME/gitolite
+gitolite setup
 
  
