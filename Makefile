@@ -31,7 +31,7 @@ $(MAKE_DEFAULTS)/id_rsa: $(HOME)/.id_rsa.pass
 	@git config user.name = "keepmywork setup script"
 	@git config user.email = "_@keepmywork.com"
 	@git add defaults/id_rsa defaults/id_rsa.pub defaults/id_rsa.pem
-	@git commit -am "added deployment rsa key" && git push
+	@git commit -am "added deployment rsa key"
 	echo "added deployment RSA key, you have to pull repository back"
 		
 remote.Up: $(MAKE_DEFAULTS)/id_rsa
