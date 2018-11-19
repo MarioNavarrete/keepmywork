@@ -156,24 +156,32 @@ Commit and Push changes to cretae new repository
 Connect to MySQL and change root password
 
 ```
-> mysql -h _.keepmywork.com -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
+> mysql -h do-server-ip -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
 
-mysql > alter user 'root'@'%' identified by 'newpassword';
+mysql > alter user 'root'@'%' identified by 'new-root-password';
 
-nysql > \q
+mysql > \q
 ```
 
 Create webapp user and database
 
 ```
-> mysql -h _.keepmywork.com -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
+> mysql -h do-server-ip -uroot -pnew-root-password --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
 
 mysql > create database webapp;
 
 mysql > grant all on webapp.* to 'webapp'@'192.168.168.0/255.255.255.0' identifiied by 'password';
 mysql > grant all on webapp.* to 'webapp'@'%' identified by 'password' require subject '/O=CLIENT/CN=user';
 
-nysql > \q
+mysql > \q
+```
+
+Check webapp user connection
+
+```
+> mysql -h do-server-ip -uwebapp -ppassword --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-user-cert.pem --ssl-key=certs/mysql-user-key.pem
+
+mysql > \q
 ```
 
 
