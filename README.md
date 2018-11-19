@@ -3,7 +3,7 @@
 
 # Installation
 
-## 1 Install Docker Server (DigitalOcean)
+## 1 Create Docker Server (DigitalOcean)
 
 ![](doc/img/do-docker.png)
 
