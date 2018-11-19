@@ -32,7 +32,7 @@ CREDS_DIR=$(APP)
 include $(MAKE_DEFAULTS)/updown.Makefile 
 include $(MAKE_DEFAULTS)/creds.Makefile
 
-remote.Up: build down
+remote.Up: build remote.Down
 	@echo soft memory limit $${SOFTLIMIT:-32m}
 	@docker run -d --name ${DEPLOY_NAME} \
 	   --restart always \

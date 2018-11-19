@@ -3,7 +3,7 @@ SHELL=/bin/bash
 
 ifeq ($(origin DEPLOY_NAME), undefined)
 TARGET = local
-export DEPLOY_NAME = nginx-gate
+export DEPLOY_NAME = unnamed
 else
 TARGET = remote
 endif
@@ -15,7 +15,7 @@ endif
 up: $(TARGET).Up
 down: $(TARGET).Down
 
-local.Up:
+local.Up::
 	-git commit -am "rebuild and up docker container"
 	BRANCH=$$(git branch|grep '*'|sed -e 's/[* ]//g') && \
 	if git checkout -b _online_ ; then \
