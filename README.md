@@ -12,9 +12,10 @@
 # docker network create --subnet=192.168.168.0/24 hub
 # ufw disable
 # ufw reset
-# ufw allow ssh
+# ufw limit ssh
 # ufw allow http
 # ufw allow https
+# ufw limit mysql
 # ufw enable
 # exit
 ```
@@ -101,15 +102,79 @@ repo nginx-gate
     RW+     =   monster
 ```
 
+Commit and Push changes to cretae new repository
 ```
 > git commit -am "added repo nginx-gate" && git push
 > cd ..
 ```
 
+
 ```
 > git clone -o online git@do-server-ip:nginx-gate nginx-gate
 > cd nginx-gate
 > cp -r ../keepmywork/templates/nginx-gate/* .
+> make certs
 > make up
 ```
+
+## Setup MySQL Database
+
+```
+> cd gitolite-admin
+```
+
+Edit conf/gitolite.conf
+```
+epo gitolite-admin
+    RW+     =   monster
+
+repo keepmywork
+    RW+     =   monster
+
+repo nginx-gate
+    RW+     =   monster
+
+repo mysql-db
+    RW+     =   monster
+```
+
+Commit and Push changes to cretae new repository
+```
+> git commit -am "added repo db-mysql" && git push
+> cd ..
+```
+
+
+```
+> git clone -o online git@do-server-ip:mysql-db mysql-db
+> cd mysql-db
+> cp -r ../keepmywork/templates/mysql-db/* .
+> make certs
+> make up
+```
+
+Connect to MySQL and change root password
+
+```
+> mysql -h _.keepmywork.com -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
+
+mysql > alter user 'root'@'%' identified by 'newpassword';
+
+nysql > \q
+```
+
+Create webapp user and database
+
+```
+> mysql -h _.keepmywork.com -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
+
+mysql > create database webapp;
+
+mysql > grant all on webapp.* to 'webapp'@'192.168.168.0/255.255.255.0' identifiied by 'password';
+mysql > grant all on webapp.* to 'webapp'@'%' identified by 'password' require subject '/O=CLIENT/CN=user';
+
+nysql > \q
+```
+
+
 
