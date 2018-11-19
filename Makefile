@@ -15,13 +15,14 @@ endif
 up: $(TARGET).Up
 down: $(TARGET).Down
 
+forced-up: 
+	date >> .forced_update
+	git add -f .forced_update	
+	make local.Up
+
 local.Up:
-ifeq ($(origin FORCE), YES)	
-	date >> UPDATED
-	git add UPDATED
-endif	
 	git commit -am "rebuild keepmywork system" || true
-	git push -f $(TARGET_GIT)
+	git push $(TARGET_GIT)
     
 local.Down:
 
