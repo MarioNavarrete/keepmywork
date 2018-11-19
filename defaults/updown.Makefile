@@ -15,7 +15,12 @@ endif
 up: $(TARGET).Up
 down: $(TARGET).Down
 
-local.Up::
+forced-up: 
+	date >> .forced_update
+	git add -f .forced_update	
+	make local.Up
+
+local.Up:
 	-git commit -am "rebuild and up docker container"
 	BRANCH=$$(git branch|grep '*'|sed -e 's/[* ]//g') && \
 	if git checkout -b _online_ ; then \
