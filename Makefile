@@ -22,11 +22,11 @@ local.Up:
 local.Down:
 
 $(HOME)/.id_rsa.pass:
-	openssl rand -base64 15 > $HOME/.id_rsa.pass
+	openssl rand -base64 15 > $(HOME)/.id_rsa.pass
 
 $(MAKE_DEFAULTS)/id_rsa: $(HOME)/.id_rsa.pass
 	@- if [ -f defaults/id_rsa -o -f defaults/id_rsa.pub ]; then rm -f defaults/id_rsa defaults/id_rsa.pub; fi
-	@ssh-keygen -b 4096 -t rsa -f defaults/id_rsa -N $(cat $HOME/.id_rsa.pass)
+	@ssh-keygen -b 4096 -t rsa -f defaults/id_rsa -N $$(cat $(HOME)/.id_rsa.pass)
 	@ssh-keygen -f defaults/id_rsa.pub -e -m pem | openssl rsa -RSAPublicKey_in -pubout > defaults/id_rsa.pem	
 	@git config user.name = "keepmywork setup script"
 	@git config user.email = "_@keepmywork.com"
