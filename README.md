@@ -15,7 +15,8 @@
 # ufw limit ssh
 # ufw allow http
 # ufw allow https
-# ufw limit mysql
+# ufw limit in on eth0 to any port 3306 proto tcp
+# ufw allow 3306/tcp
 # ufw enable
 # exit
 ```
