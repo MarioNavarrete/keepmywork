@@ -5,7 +5,7 @@
 
 ## 1 Create Docker Server (DigitalOcean)
 
-![](doc/img/do-docker.png)
+![](docs/img/do-docker.png)
 
 ```
 > ssh root@do-server-ip
