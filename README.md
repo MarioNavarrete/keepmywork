@@ -18,13 +18,7 @@
 # ufw limit in on eth0 to any port 3306 proto tcp
 # ufw allow 3306/tcp
 # ufw enable
-# exit
-```
-
-## 2 Install GitoLite
-
-```
-> ssh root@do-server-ip
+# dpkg-reconfigure tzdata
 # locale-gen en_US.UTF-8
 # update-locale LANG=en_US.UTF-8
 # cat >> /etc/environment 
@@ -34,7 +28,12 @@ LANGUAGE=en_US.UTF-8
 ^D
 # useradd -r -m -s /bin/bash git
 # usermod -a -G docker git
-# exit
+# ^D
+```
+
+## 2 Install GitoLite
+
+```
 > scp ~/.ssh/id_rsa.pub root@do-server-ip:/home/git/monster.pub
 > ssh root@do-server-ip
 # sudo -i -u git
@@ -42,8 +41,7 @@ $ git clone https://github.com/sitaramc/gitolite
 $ mkdir bin
 $ gitolite/install -to $HOME/bin
 $ bin/gitolite setup -pk monster.pub
-$ exit
-# exit
+$ ^D^D
 ```
 
 ## 3 Setup Deployment System
@@ -68,19 +66,20 @@ and commit repo
 > cd ..
 ```
 
+Fork [sudachen/keepmywork](https://github.com/sudachen/keepmywork) on GitHub.
+
 Upload keepmywork scripts and setup hooks
 ```
-> git clone git@github.com:sudachen/keepmywork
+> git clone git@github.com:your-github-name/keepmywork
 > cd keepmywork
 > git remote add online git@do-server-ip:keepmywork
-> git checkout -b online
-> git push -u online online:master
-> ssh root@do-server-ip
+> make up
+> ssh root@do-server-ip 
 # sudo -i -u git
 $ git clone file://$HOME/repositories/keepmywork.git keepmywork
-$ cd keepmywork
-$ ./setup_hooks
-$ cd ..
+$ cd keepmywork && ./setup_hooks && cd .. && rm -rf keepmywork
+$ ^D^D
+> make remote-rsa-key
 ```
 
 ## 4 Deploy Services and Apps
@@ -103,18 +102,23 @@ repo nginx-gate
     RW+     =   monster
 ```
 
-Commit and Push changes to cretae new repository
+Commit and Push changes to create new deployment repository
 ```
 > git commit -am "added repo nginx-gate" && git push
 > cd ..
 ```
 
+Create repositiry nginx-gate on github
+
 Deploy NGINX gateway
 ```
-> git clone -o online git@do-server-ip:nginx-gate nginx-gate
+> git clone origin git@github.com:your-github-name/nginx-gate
 > cd nginx-gate
-> cp -r ../keepmywork/templates/nginx-gate/* .
+> git remote add online git@do-server-ip:nginx-gate nginx-gate
+> make deps
+> cp -r .keepmywork/templates/nginx-gate/* .
 > make certs
+> git add . && git commit -am init && git push -u origin master
 > make up
 ```
 
@@ -139,18 +143,23 @@ repo mysql-db
     RW+     =   monster
 ```
 
-Commit and Push changes to cretae new repository
+Commit and Push changes to create new deployment repository
 ```
-> git commit -am "added repo db-mysql" && git push
+> git commit -am "added repo mysql-db" && git push
 > cd ..
 ```
 
+Create repositiry mysql-db on github
+
 Deploy MySQL server
 ```
-> git clone -o online git@do-server-ip:mysql-db mysql-db
+> git clone git@github.com:your-github-name/mysql-db
 > cd mysql-db
-> cp -r ../keepmywork/templates/mysql-db/* .
+> git remote add online git@do-server-ip:mysql-db mysql-db
+> make deps
+> cp -r .keepmywork/templates/mysql-db/* .
 > make certs
+> git add . && git commit -am init && git push -u origin master
 > make up
 ```
 
