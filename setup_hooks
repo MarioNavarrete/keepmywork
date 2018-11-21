@@ -7,6 +7,6 @@ cp hooks/* $HOME/local/hooks/common/
 chmod 700 $HOME/local/hooks/common/*
 
 cd $HOME/gitolite
-gitolite setup
+$HOME/bin/gitolite setup
 
  
