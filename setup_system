@@ -11,7 +11,7 @@ if [ -z $(docker network ls --format {{.ID}} -f name=hub) ]; then
 fi
 
 ufw disable
-ufw reset
+echo y | ufw reset
 ufw limit ssh
 ufw allow http
 ufw allow https
@@ -31,7 +31,7 @@ LANGUAGE=en_US.UTF-8
 EOF
 fi
  
-if [ -z $(id -u git1 2>/dev/null) ]; then
+if [ -z $(id -u git 2>/dev/null) ]; then
   useradd -r -m -s /bin/bash git
   usermod -a -G docker git
 fi
@@ -43,6 +43,8 @@ fi
 mv ~/monster.pub ~git/ && chown git ~git/monster.pub
 
 sudo -i -u git << EOF
+id
+cd
 git clone https://github.com/sitaramc/gitolite
 mkdir bin
 gitolite/install -to $HOME/bin
