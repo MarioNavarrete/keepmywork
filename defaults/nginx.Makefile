@@ -3,7 +3,7 @@ SHELL=/bin/bash
 include $(MAKE_DEFAULTS)/updown.Makefile
 include $(MAKE_DEFAULTS)/certs.Makefile 
 
-remote.Up: build remote.Down
+remote.Up: remote.Build remote.Down
 	docker run -d --name ${DEPLOY_NAME} --restart always \
                 --network hub --hostname $$(hostname)\
                 -p 80:80 \
