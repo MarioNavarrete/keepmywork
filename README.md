@@ -52,7 +52,7 @@ Upload keepmywork scripts and setup hooks
 
 ## 4 Deploy Services and Apps
 
-### Deploy NGINX Gate
+### NGINX Gate
 
 ```
 > cd gitolite-admin
@@ -76,7 +76,7 @@ Commit and Push changes to create new deployment repository
 > cd ..
 ```
 
-Create repositiry nginx-gate on github
+_Create repositiry named nginx-gate on github to store your specific modifications_
 
 Deploy NGINX gateway
 ```
@@ -90,7 +90,7 @@ Deploy NGINX gateway
 > make up
 ```
 
-### Deploy MySQL Server
+### MySQL Server
 
 ```
 > cd gitolite-admin
@@ -117,7 +117,7 @@ Commit and Push changes to create new deployment repository
 > cd ..
 ```
 
-Create repositiry mysql-db on github
+_Create repositiry named mysql-db on github to store your specific modifications_
 
 Deploy MySQL server
 ```
