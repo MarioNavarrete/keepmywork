@@ -34,7 +34,7 @@ enc:  $(ID_RSA_PEM) $(HOME)/.ssh/id_rsa.pub $(KEY_BIN) $(CERTS_DIR)/certs.key1
 
 local.Dec: $(KEY_BIN)
 	for i in $(CERTS_DIR)/*.enc; do \
-	   if [ -f $${i%.enc} ]; then \
+	   if [ ! -f $${i%.enc} ]; then \
 	      openssl enc -d -aes-256-cbc -a -md sha1 -in $$i -out $${i%.enc} -pass file:$(KEY_BIN); \
 	   fi; \
 	done
