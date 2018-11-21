@@ -7,45 +7,16 @@
 
 ![](docs/img/do-docker.png)
 
+## 3 Setup Deployment System
+
+Install gitolite and setup hooks
 ```
 > ssh root@do-server-ip
-# docker network create --subnet=192.168.168.0/24 hub
-# ufw disable
-# ufw reset
-# ufw limit ssh
-# ufw allow http
-# ufw allow https
-# ufw limit in on eth0 to any port 3306 proto tcp
-# ufw allow 3306/tcp
-# ufw enable
-# dpkg-reconfigure tzdata
-# locale-gen en_US.UTF-8
-# update-locale LANG=en_US.UTF-8
-# cat >> /etc/environment 
-LC_ALL=en_US.UTF-8
-LANG=en_US.UTF-8 
-LANGUAGE=en_US.UTF-8 
-^D
-# useradd -r -m -s /bin/bash git
-# usermod -a -G docker git
+# curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
 # ^D
 ```
 
-## 2 Install GitoLite
-
-```
-> scp ~/.ssh/id_rsa.pub root@do-server-ip:/home/git/monster.pub
-> ssh root@do-server-ip
-# sudo -i -u git
-$ git clone https://github.com/sitaramc/gitolite
-$ mkdir bin
-$ gitolite/install -to $HOME/bin
-$ bin/gitolite setup -pk monster.pub
-$ ^D^D
-```
-
-## 3 Setup Deployment System
-
+Build up keepmywork repository
 ```
 > git clone git@do-server-ip:gitolite-admin
 > cd gitolite-admin
@@ -73,12 +44,6 @@ Upload keepmywork scripts and setup hooks
 > git clone git@github.com:your-github-name/keepmywork
 > cd keepmywork
 > git remote add online git@do-server-ip:keepmywork
-> make up
-> ssh root@do-server-ip 
-# sudo -i -u git
-$ git clone file://$HOME/repositories/keepmywork.git keepmywork
-$ cd keepmywork && ./setup_hooks && cd .. && rm -rf keepmywork
-$ ^D^D
 > make remote-rsa-key
 ```
 
