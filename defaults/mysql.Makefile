@@ -1,5 +1,6 @@
 SHELL=/bin/bash
 
+include $(MAKE_DEFAULTS)/host.Makefile
 include $(MAKE_DEFAULTS)/updown.Makefile 
 include $(MAKE_DEFAULTS)/certs.Makefile 
 
@@ -34,3 +35,22 @@ local.Build:
 	docker 	build -t ${DEPLOY_NAME} .
 	
 build: $(TARGET).Build	
+
+mysql-root:
+	@mysql -h $(GIT_HOST) -uroot -p \
+	       --ssl-ca=certs/mysqld-ca.pem \
+	       --ssl-cert=certs/mysql-root-cert.pem \
+	       --ssl-key=certs/mysql-root-key.pem
+
+mysql-root-setup:
+	@mysql -h $(GIT_HOST) -uroot -ptoor \
+	       --ssl-ca=certs/mysqld-ca.pem \
+	       --ssl-cert=certs/mysql-root-cert.pem \
+	       --ssl-key=certs/mysql-root-key.pem
+	       
+mysql:
+	@read -p "user [$(USER)]:" mysqluser && \
+	  mysql -h $(GIT_HOST) -u$$mysqluser -p \
+	        --ssl-ca=certs/mysqld-ca.pem \
+	        --ssl-cert=certs/mysql-user-cert.pem \
+	        --ssl-key=certs/mysql-user-key.pem
