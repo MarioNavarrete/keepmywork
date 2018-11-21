@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 read -p "hostname [$HOSTNAME]:" input
 input=${input:-$HOSTNAME}
@@ -43,11 +44,9 @@ fi
 mv ~/monster.pub ~git/ && chown git ~git/monster.pub
 
 sudo -i -u git << EOF
-id
-cd
 git clone https://github.com/sitaramc/gitolite
 mkdir bin
-gitolite/install -to $HOME/bin
+gitolite/install -to bin
 bin/gitolite setup -pk monster.pub
 git clone https://github.com:sudachen/keepmywork
 cd keepmywork
