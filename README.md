@@ -99,7 +99,7 @@ Deploy NGINX gateway
 
 Edit conf/gitolite.conf to add repo mysql-db
 ```
-epo gitolite-admin
+repo gitolite-admin
     RW+     =   monster
 
 repo keepmywork
