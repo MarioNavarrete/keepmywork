@@ -24,7 +24,7 @@ local.Dec:
 	openssl base64 -d -in $(CERTS_DIR)/certs.key2 \
 	  | openssl rsautl -decrypt -inkey .id_user.pem -out .key.bin 
 	for i in $(CERTS_DIR)/*.enc; do \
-	   if [ ! -f $${i%.enc} ]; then \
+	   if [ -f $${i%.enc} ]; then \
 	      openssl enc -d -aes-256-cbc -a -md sha1 -in $$i -out $${i%.enc} -pass file:.key.bin; \
 	   fi; \
 	done
