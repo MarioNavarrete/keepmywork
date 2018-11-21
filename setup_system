@@ -1,0 +1,50 @@
+#!/bin/bash
+
+read -p "hostname [$HOSTNAME]:" input
+input=${input:-$HOSTNAME}
+
+echo $input > /etc/hostname
+hostname $input
+
+docker network create --subnet=192.168.168.0/24 hub
+
+ufw disable
+ufw reset
+ufw limit ssh
+ufw allow http
+ufw allow https
+ufw limit in on eth0 to any port 3306 proto tcp
+ufw allow 3306/tcp
+ufw enable
+
+dpkg-reconfigure tzdata
+locale-gen en_US.UTF-8
+update-locale LANG=en_US.UTF-8
+
+cat >> /etc/environment <<EOF
+LC_ALL=en_US.UTF-8
+LANG=en_US.UTF-8
+LANGUAGE=en_US.UTF-8
+EOF
+ 
+useradd -r -m -s /bin/bash git
+usermod -a -G docker git
+
+if [ ! -f ~/monster.pub ]; then
+  cat ~/.ssh/authorized_keys | head -n 1 > monster.pub
+fi
+
+mv monster.pub ~git/ && chown git ~git/monster.pub
+
+sudo -i -u git << EOF
+git clone https://github.com/sitaramc/gitolite
+mkdir bin
+gitolite/install -to $HOME/bin
+bin/gitolite setup -pk monster.pub
+git clone https://github.com:sudachen/keepmywork
+cd keepmywork
+./setup_hooks
+cd ..
+rm -rf keepmywork
+EOF
+
