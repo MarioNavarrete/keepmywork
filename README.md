@@ -1,8 +1,8 @@
 # Gitolite/Docker based deployment system
 
-_**^D** means Ctrl+D_   
-_**do-server-ip** means IP address of your server_   
-_**your-github-name** means your github account name_   
+:grey_exclamation: _**^D** means Ctrl+D_   
+:grey_exclamation: _**do-server-ip** means IP address of your server_   
+:grey_exclamation: _**your-github-name** means your github account name_   
 
 # Installation
 
@@ -40,7 +40,7 @@ and commit repo
 > cd ..
 ```
 
-Fork [sudachen/keepmywork](https://github.com/sudachen/keepmywork) on GitHub.
+:exclamation: _Fork [sudachen/keepmywork](https://github.com/sudachen/keepmywork) on GitHub._
 
 Upload keepmywork scripts and build deployment key
 ```
@@ -77,7 +77,7 @@ Commit and Push changes to create new deployment repository
 > cd ..
 ```
 
-_Create repositiry named nginx-gate on github to store your specific modifications_
+:exclamation: _Create repositiry named nginx-gate on github to store your specific modifications_
 
 Deploy NGINX gateway
 ```
@@ -118,7 +118,7 @@ Commit and Push changes to create new deployment repository
 > cd ..
 ```
 
-_Create repositiry named mysql-db on github to store your specific modifications_
+:exclamation: _Create repositiry named mysql-db on github to store your specific modifications_
 
 Deploy MySQL server
 ```
