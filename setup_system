@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+apt install -y make
+
 read -p "hostname [$HOSTNAME]:" input < /dev/tty
 input=${input:-$HOSTNAME}
 
