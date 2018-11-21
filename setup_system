@@ -6,7 +6,9 @@ input=${input:-$HOSTNAME}
 echo $input > /etc/hostname
 hostname $input
 
-docker network create --subnet=192.168.168.0/24 hub
+if [ -z $(docker network ls --format {{.ID}} -f name=hub) ]; then
+  docker network create --subnet=192.168.168.0/24 hub
+fi
 
 ufw disable
 ufw reset
@@ -18,23 +20,27 @@ ufw allow 3306/tcp
 echo y | ufw enable
 
 dpkg-reconfigure tzdata
-locale-gen en_US.UTF-8
-update-locale LANG=en_US.UTF-8
 
-cat >> /etc/environment <<EOF
+if [ "$LC_ALL" != "en_US.UTF-8" ]; then
+  locale-gen en_US.UTF-8
+  update-locale LANG=en_US.UTF-8
+  cat >> /etc/environment <<EOF
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 LANGUAGE=en_US.UTF-8
 EOF
+fi
  
-useradd -r -m -s /bin/bash git
-usermod -a -G docker git
-
-if [ ! -f ~/monster.pub ]; then
-  cat ~/.ssh/authorized_keys | head -n 1 > monster.pub
+if [ -z $(id -u git1 2>/dev/null) ]; then
+  useradd -r -m -s /bin/bash git
+  usermod -a -G docker git
 fi
 
-mv monster.pub ~git/ && chown git ~git/monster.pub
+if [ ! -f ~/monster.pub ]; then
+  cat ~/.ssh/authorized_keys | head -n 1 > ~/monster.pub
+fi
+
+mv ~/monster.pub ~git/ && chown git ~git/monster.pub
 
 sudo -i -u git << EOF
 git clone https://github.com/sitaramc/gitolite
