@@ -1,5 +1,8 @@
 # Gitolite/Docker based deployment system
 
+_^D means Ctrl+D_
+_do-server-ip means IP address of your server_
+_your-github-name means your github account name_
 
 # Installation
 
@@ -9,7 +12,7 @@
 
 ## 3 Setup Deployment System
 
-Install gitolite and setup hooks  ( _^D means Ctrl+D_ )
+Install gitolite and setup hooks 
 ```
 > ssh root@do-server-ip
 # curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
