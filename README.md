@@ -134,19 +134,15 @@ $ make up
 
 Connect to MySQL and change root password
 ```
-$ mysql -h do-server-ip -uroot -ptoor --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
+$ make mysql-root-setup
 
 mysql > alter user 'root'@'%' identified by 'new-root-password';
 
-mysql > \q
 ```
 
 Create webapp user and database
 ```
-$ mysql -h do-server-ip -uroot -pnew-root-password --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-root-cert.pem --ssl-key=certs/mysql-root-key.pem
-
 mysql > create database webapp;
-
 mysql > grant all on webapp.* to 'webapp'@'192.168.168.0/255.255.255.0' identifiied by 'password';
 mysql > grant all on webapp.* to 'webapp'@'%' identified by 'password' require subject '/O=CLIENT/CN=user';
 
@@ -155,7 +151,9 @@ mysql > \q
 
 Check webapp user connection
 ```
-$ mysql -h do-server-ip -uwebapp -ppassword --ssl-ca=certs/mysqld-ca.pem --ssl-cert=certs/mysql-user-cert.pem --ssl-key=certs/mysql-user-key.pem
+$ make mysql
+user [monster]: webapp
+Enter password:
 
 mysql > \q
 ```
