@@ -46,7 +46,7 @@ mv ~/monster.pub ~git/ && chown git ~git/monster.pub
 sudo -i -u git << EOF
 git clone https://github.com/sitaramc/gitolite
 mkdir bin
-gitolite/install -to bin
+gitolite/install -to /home/git/bin
 bin/gitolite setup -pk monster.pub
 git clone https://github.com:sudachen/keepmywork
 cd keepmywork
