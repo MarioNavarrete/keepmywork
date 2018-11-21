@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-read -p "hostname [$HOSTNAME]:" input
+read -p "hostname [$HOSTNAME]:" input < /dev/tty
 input=${input:-$HOSTNAME}
 
 echo $input > /etc/hostname
