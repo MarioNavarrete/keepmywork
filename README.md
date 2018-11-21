@@ -19,7 +19,7 @@ Prepare system, install gitolite and setup git hooks
 # ^D
 ```
 
-Build up keepmywork repository
+Clone gitolite config repo
 ```
 > git clone git@do-server-ip:gitolite-admin
 > cd gitolite-admin
