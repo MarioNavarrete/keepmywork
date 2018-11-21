@@ -84,7 +84,7 @@ Deploy NGINX gateway
 $ git clone origin git@github.com:your-github-name/nginx-gate
 $ cd nginx-gate
 $ git remote add online git@do-server-ip:nginx-gate nginx-gate
-$ make deps
+$ git clone git@github.com:your-github-name/keepmywork .keepmywork
 $ cp -r .keepmywork/templates/nginx-gate/* .
 $ make certs
 $ git add . && git commit -am init && git push -u origin master
@@ -125,7 +125,7 @@ Deploy MySQL server
 $ git clone git@github.com:your-github-name/mysql-db
 $ cd mysql-db
 $ git remote add online git@do-server-ip:mysql-db mysql-db
-$ make deps
+$ git clone git@github.com:your-github-name/keepmywork .keepmywork
 $ cp -r .keepmywork/templates/mysql-db/* .
 $ make certs
 $ git add . && git commit -am init && git push -u origin master
