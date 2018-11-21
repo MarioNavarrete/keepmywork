@@ -25,7 +25,7 @@ Clone gitolite config repo
 > cd gitolite-admin
 ```
 
-Edit conf/gitolite.conf
+Edit conf/gitolite.conf to add repo keepmywork
 ```
 repo gitolite-admin
     RW+     =   monster
@@ -59,7 +59,7 @@ Upload keepmywork scripts and build deployment key
 > cd gitolite-admin
 ```
 
-Edit conf/gitolite.conf
+Edit conf/gitolite.conf to add repo nginx-gate
 ```
 repo gitolite-admin
     RW+     =   monster
@@ -97,7 +97,7 @@ Deploy NGINX gateway
 > cd gitolite-admin
 ```
 
-Edit conf/gitolite.conf
+Edit conf/gitolite.conf to add repo mysql-db
 ```
 epo gitolite-admin
     RW+     =   monster
