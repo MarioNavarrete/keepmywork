@@ -42,12 +42,13 @@ and commit repo
 
 Fork [sudachen/keepmywork](https://github.com/sudachen/keepmywork) on GitHub.
 
-Upload keepmywork scripts and setup hooks
+Upload keepmywork scripts and build deployment key
 ```
 > git clone git@github.com:your-github-name/keepmywork
 > cd keepmywork
 > git remote add online git@do-server-ip:keepmywork
-> make remote-rsa-key
+> make deployment-key
+> git push origin
 ```
 
 ## 4 Deploy Services and Apps
@@ -158,4 +159,3 @@ Check webapp user connection
 
 mysql > \q
 ```
-
