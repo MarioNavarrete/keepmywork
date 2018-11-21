@@ -9,7 +9,7 @@
 
 ## 3 Setup Deployment System
 
-Install gitolite and setup hooks _^D means Ctrl+D_
+Install gitolite and setup hooks  ( _^D means Ctrl+D_ )
 ```
 > ssh root@do-server-ip
 # curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
