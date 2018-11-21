@@ -15,6 +15,8 @@
 Prepare system, install gitolite and setup git hooks 
 ```
 $ ssh root@do-server-ip
+# apt update && apt upgrade -y && reboot
+$ ssh root@do-server-ip
 # curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
 # ^D
 ```
