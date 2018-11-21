@@ -48,7 +48,7 @@ git clone https://github.com/sitaramc/gitolite
 mkdir bin
 gitolite/install -to /home/git/bin
 bin/gitolite setup -pk monster.pub
-git clone https://github.com:sudachen/keepmywork
+git clone https://github.com/sudachen/keepmywork
 cd keepmywork
 ./setup_hooks
 cd ..
