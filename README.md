@@ -10,7 +10,7 @@
 
 ![](docs/img/do-docker.png)
 
-## 3 Setup Deployment System
+## 2 Setup Deployment System
 
 Prepare system, install gitolite and setup git hooks 
 ```
@@ -51,7 +51,7 @@ Upload keepmywork scripts and build deployment key
 > git push origin
 ```
 
-## 4 Deploy Services and Apps
+## 3 Deploy Services and Apps
 
 ### NGINX Gate
 
