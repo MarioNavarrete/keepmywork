@@ -16,8 +16,12 @@ remote.Down:
 	ID=$$(docker container ls -a -f name=${DEPLOY_NAME} | tail -n1 | cut -f1 -d ' ') && \
           if [ "$${ID}" != "CONTAINER" ]; then docker container rm ${DEPLOY_NAME} 2>/dev/null 1>&2; fi
 
-build:  
+remote.Build: remote.Dec local.Build
+
+local.Build:  
 	docker build -t ${DEPLOY_NAME} .
+	
+build: $(TARGET).Build	
 
 CERTS = certs/nginx-cert.pem
 $(CERTS):
