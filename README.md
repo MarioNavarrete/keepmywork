@@ -1,8 +1,8 @@
 # Gitolite/Docker based deployment system
 
-_^D means Ctrl+D_   
-_do-server-ip means IP address of your server_   
-_your-github-name means your github account name_   
+_**^D** means Ctrl+D_   
+_**do-server-ip** means IP address of your server_   
+_**your-github-name** means your github account name_   
 
 # Installation
 
