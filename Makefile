@@ -52,4 +52,12 @@ up: $(TARGET).Up
 down: $(TARGET).Down
 
 
-
+deployment-key:
+	if [ -f defaults/id_rsa ]; then rm -rf defaults/id_rsa.*; fi
+	git commit -am "rebuild deployment key" || true
+	git push $(TARGET_GIT)
+	git pull $(TARGET_GIT)
+	
+	
+	
+	
