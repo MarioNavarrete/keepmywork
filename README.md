@@ -12,7 +12,7 @@ _**your-github-name** means your github account name_
 
 ## 3 Setup Deployment System
 
-Install gitolite and setup hooks 
+Prepare system, install gitolite and setup git hooks 
 ```
 > ssh root@do-server-ip
 # curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
