@@ -10,137 +10,45 @@
 
 ![](docs/img/do-docker.png)
 
-## 2 Setup Deployment System
-
-Prepare system, install gitolite and setup git hooks 
+## 2 Update your Linux System
 ```
 $ ssh root@do-server-ip
 # apt update && apt upgrade -y && reboot
-$ ssh root@do-server-ip
-# curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
-# ^D
 ```
 
-Clone gitolite config repo
+## 3 Inlitilize Deployment System
 ```
-$ git clone git@do-server-ip:gitolite-admin
-$ cd gitolite-admin
-```
-
-Edit conf/gitolite.conf to add repo keepmywork
-```
-repo gitolite-admin
-    RW+     =   monster
-
-repo keepmywork
-    RW+     =   monster
-```
-
-and commit repo
-```
-$ git commit -am "added repo keepmywork" && git push
-$ cd ..
-```
-
-:exclamation: _Fork [sudachen/keepmywork](https://github.com/sudachen/keepmywork) on GitHub._
-
-Upload keepmywork scripts and build deployment key
-```
-$ git clone git@github.com:your-github-name/keepmywork
+$ git clone -o github git@github.com:sudachen/keepmywork
 $ cd keepmywork
 $ git remote add online git@do-server-ip:keepmywork
-$ make deployment-key
-$ git push origin
-```
-
-## 3 Deploy Services and Apps
-
-### NGINX Gate
-
-```
-$ cd gitolite-admin
-```
-
-Edit conf/gitolite.conf to add repo nginx-gate
-```
-repo gitolite-admin
-    RW+     =   monster
-
-repo keepmywork
-    RW+     =   monster
-
-repo nginx-gate
-    RW+     =   monster
-```
-
-Commit and Push changes to create new deployment repository
-```
-$ git commit -am "added repo nginx-gate" && git push
+$ ./init keepmywork
+$ make up
 $ cd ..
 ```
 
-:exclamation: _Create repositiry named nginx-gate on github to store your specific modifications_
+## 3 Deploy Main Services
 
-Deploy NGINX gateway
+### 4 Deploy NGINX gateway
 ```
-$ git clone origin git@github.com:your-github-name/nginx-gate
-$ cd nginx-gate
-$ git remote add online git@do-server-ip:nginx-gate
-$ cp -r ../keepmywork/templates/nginx-gate/* .
-$ make certs
-$ git add . && git commit -am init && git push -u origin master
-$ make up
+$ ./keepmywork/init -up nginx-gate
 ```
 
-### MySQL Server
+### 5 Deply and Configure MySQL Server
 
 ```
-$ cd gitolite-admin
+$ ./keepmywork/init -up mysql-db 
 ```
 
-Edit conf/gitolite.conf to add repo mysql-db
+Connect to MySQL and change root password, initial root password is __toor__
 ```
-repo gitolite-admin
-    RW+     =   monster
-
-repo keepmywork
-    RW+     =   monster
-
-repo nginx-gate
-    RW+     =   monster
-
-repo mysql-db
-    RW+     =   monster
-```
-
-Commit and Push changes to create new deployment repository
-```
-$ git commit -am "added repo mysql-db" && git push
-$ cd ..
-```
-
-:exclamation: _Create repositiry named mysql-db on github to store your specific modifications_
-
-Deploy MySQL server
-```
-$ git clone git@github.com:your-github-name/mysql-db
-$ cd mysql-db
-$ git remote add online git@do-server-ip:mysql-db
-$ cp -r ../keepmywork/templates/mysql-db/* .
-$ make certs
-$ git add . && git commit -am init && git push -u origin master
-$ make up
-```
-
-Connect to MySQL and change root password
-```
-$ make mysql-root-setup
+$ ./mysql-db/mysql-root
+Enter password:
 
 mysql > alter user 'root'@'%' identified by 'new-root-password';
 
 ```
 
-Create webapp user and database
+Create webapp user and database if it's reqired
 ```
 mysql > create database webapp;
 mysql > grant all on webapp.* to 'webapp'@'192.168.168.0/255.255.255.0' identifiied by 'password';
@@ -151,7 +59,7 @@ mysql > \q
 
 Check webapp user connection
 ```
-$ make mysql
+$ ./mysql-db/mysql
 user [monster]: webapp
 Enter password:
 
