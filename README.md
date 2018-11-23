@@ -2,7 +2,7 @@
 
 :grey_exclamation: _**^D** means Ctrl+D_   
 :grey_exclamation: _**do-server-ip** means IP address of your server_   
-:grey_exclamation: _**HostedPojects** directory where you place your projects
+:grey_exclamation: _**HostedPojects** directory where you place your projects_
 
 # Installation
 
