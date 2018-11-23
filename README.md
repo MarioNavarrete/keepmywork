@@ -1,7 +1,8 @@
 # Gitolite/Docker based deployment system
 
 :grey_exclamation: _**^D** means Ctrl+D_   
-:grey_exclamation: _**do-server-ip** means IP address of your server_     
+:grey_exclamation: _**do-server-ip** means IP address of your server_   
+:grey_exclamation: _**HostedPojects** directory where you place your projects
 
 # Installation
 
@@ -13,34 +14,34 @@
 ```
 $ ssh root@do-server-ip
 # apt update && apt upgrade -y && reboot
+$ ssh root@do-server-ip
+# curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
+# ^D
 ```
 
-## 3 Inlitilize Deployment System
+### 3 Deploy NGINX http(S) frontend
 ```
-$ git clone -o github git@github.com:sudachen/keepmywork
-$ cd keepmywork
-$ git remote add online git@do-server-ip:keepmywork
-$ ./init keepmywork
+$ cd HostedProjects && mkdir frontend && cd frontend
+$ git clone -o online git@do-server-ip:keepmywork .keepmywork
+$ ./keepmywork/init nginx-gate .
+```
+
+Now you can change nginx configuration and then deply frontend by
+```
 $ make up
-$ cd ..
 ```
 
-## 3 Deploy Main Services
-
-### 4 Deploy NGINX gateway
-```
-$ ./keepmywork/init -up nginx-gate
-```
-
-### 5 Deply and Configure MySQL Server
+### 4 Deply MySQL database server
 
 ```
-$ ./keepmywork/init -up mysql-db 
+$ cd HostedProjects && mkdir db && cd db
+$ git clone -o online git@do-server-ip:keepmywork .keepmywork
+$ ./keepmywork/init -up mysql-db .
 ```
 
 Connect to MySQL and change root password, initial root password is __toor__
 ```
-$ ./mysql-db/mysql-root
+$ ./mysql-root
 Enter password:
 
 mysql > alter user 'root'@'%' identified by 'new-root-password';
@@ -58,7 +59,7 @@ mysql > \q
 
 Check webapp user connection
 ```
-$ ./mysql-db/mysql
+$ ./mysql-user
 user [monster]: webapp
 Enter password:
 
