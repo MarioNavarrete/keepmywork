@@ -11,16 +11,22 @@
 ![](docs/img/do-docker.png)
 
 ## 2 Update your Linux System
+
+Update an operating system
 ```
 $ ssh root@do-server-ip
 # apt update && apt upgrade -y && reboot
-..... now wait a little, server is rebooting
+```
+Wait a little now , server is rebooting. Then setup qeruired server compnents
+```
 $ ssh root@do-server-ip
 # curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
 # ^D
 ```
 
 ### 3 Deploy NGINX http(S) frontend
+
+Create project and initailize its content
 ```
 $ cd HostedProjects && mkdir frontend && cd frontend
 $ git clone -o online git@do-server-ip:keepmywork .keepmywork
@@ -34,13 +40,19 @@ $ make up
 
 ### 4 Deploy MySQL database server
 
+Create project an initialize its content
 ```
 $ cd HostedProjects && mkdir db && cd db
 $ git clone -o online git@do-server-ip:keepmywork .keepmywork
-$ ./keepmywork/init -up mysql-db .
+$ ./keepmywork/init mysql-db .
 ```
 
-Connect to MySQL and change root password, initial root password is __toor__
+Deploy MySQL server with default root password __toor__
+```
+$ make up
+```
+
+Connect to MySQL and change root password
 ```
 $ ./mysql-root
 Enter password:
