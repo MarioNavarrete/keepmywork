@@ -14,6 +14,7 @@
 ```
 $ ssh root@do-server-ip
 # apt update && apt upgrade -y && reboot
+..... now wait a little, server is rebooting
 $ ssh root@do-server-ip
 # curl https://raw.githubusercontent.com/sudachen/keepmywork/master/setup_system | bash
 # ^D
