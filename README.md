@@ -1,8 +1,7 @@
 # Gitolite/Docker based deployment system
 
 :grey_exclamation: _**^D** means Ctrl+D_   
-:grey_exclamation: _**do-server-ip** means IP address of your server_   
-:grey_exclamation: _**your-github-name** means your github account name_   
+:grey_exclamation: _**do-server-ip** means IP address of your server_     
 
 # Installation
 
