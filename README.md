@@ -31,7 +31,7 @@ Now you can change nginx configuration and then deply frontend by
 $ make up
 ```
 
-### 4 Deply MySQL database server
+### 4 Deploy MySQL database server
 
 ```
 $ cd HostedProjects && mkdir db && cd db
