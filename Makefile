@@ -14,6 +14,8 @@ endif
 
 include defaults/updown.Makefile
 
+ifeq ($(origin DEPLOY_BRANCH), master)
+
 $(HOME)/.id_rsa.pass:
 	openssl rand -base64 15 > $(HOME)/.id_rsa.pass
 
@@ -26,8 +28,16 @@ $(MAKE_DEFAULTS)/id_rsa: $(HOME)/.id_rsa.pass
 	@git add defaults/id_rsa defaults/id_rsa.pub defaults/id_rsa.pem
 	@git commit -am "added deployment rsa key"
 	echo "added deployment RSA key, you have to pull repository back"
-		
-remote.Up: $(MAKE_DEFAULTS)/id_rsa
+
+RSA: $(MAKE_DEFAULTS)/id_rsa		
+
+else
+
+RSA:
+
+endif
+
+remote.Up: RSA
 	mkdir -p $(HOME)/local/hooks/common
 	cp hooks/* $(HOME)/local/hooks/common/
 	chmod 700 $(HOME)/local/hooks/common/*
