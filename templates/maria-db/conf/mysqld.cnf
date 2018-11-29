@@ -1,6 +1,6 @@
 [mysqld]
 ssl = true
-ssl-cipher = ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-SHA
+ssl-cipher = ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
 ssl_ca = /etc/certs/mysqld-ca.pem
 ssl_cert = /etc/certs/mysqld-cert.pem
 ssl_key = /etc/certs/mysqld-key.pem
