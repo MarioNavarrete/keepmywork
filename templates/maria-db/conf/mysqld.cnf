@@ -5,3 +5,7 @@ ssl_ca = /etc/certs/mysqld-ca.pem
 ssl_cert = /etc/certs/mysqld-cert.pem
 ssl_key = /etc/certs/mysqld-key.pem
 bind-address = 0.0.0.0
+collation-server = utf8mb4_unicode_ci
+init-connect='SET NAMES utf8mb4'
+character-set-server = utf8mb4
+
