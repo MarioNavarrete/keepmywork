@@ -1,4 +1,4 @@
-export REVISION := 1.0
+export REVISION := 1.1
 export BASE_REVISION := $(REVISION)
 export OWNER := sudachen
 
@@ -8,6 +8,8 @@ all: update
 pyscript.Update:
 	IMAGE=$(basename $@) $(MAKE) -C $(basename $@) -f $(PWD)/Makefile.docker update
 webapp.Update: 
+	IMAGE=$(basename $@) BASE_IMAGE= BASE_REVISION=latest $(MAKE) -C $(basename $@) -f $(PWD)/Makefile.docker update
+hugapp.Update: 
 	IMAGE=$(basename $@) BASE_IMAGE= BASE_REVISION=latest $(MAKE) -C $(basename $@) -f $(PWD)/Makefile.docker update
 
 %.Push:

@@ -121,7 +121,10 @@ RUN pip install -U --no-cache-dir \
         requests \
         urllib3 \ 
         weasyprint
-
+        
+RUN pip install -U --no-cache-dir \
+	sqlalchemy-redshift
+	
 USER root
 
 ADD circus.ini /etc/
@@ -131,3 +134,10 @@ RUN echo "jupyter ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/jupyter \
     && echo PATH=$PATH > /etc/environment \
     && echo SHELL=$SHELL >> /etc/environment
 
+COPY pyscript_rsa $HOME/.ssh/id_rsa
+COPY pyscript_rsa.pub $HOME/.ssh/id_rsa.pub
+
+RUN chown -R jupyter:users $HOME/.ssh \
+ && chmod -R og-rxw $HOME/.ssh \
+ && echo "Host *" > $HOME/.ssh/config \
+ && echo "StrictHostKeyChecking no" >> $HOME/.ssh/config
